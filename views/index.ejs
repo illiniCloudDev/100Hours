@@ -14,13 +14,20 @@
         <input type="number" placeholder="enter $$$ amount" name="expense"/>
         <button type="submit">Submit Expense</button>
     </form>
+    
     <div class="tempContainer">
-        <li> Results will display here </li>
-
+        <ul class="expenses">
+          <!-- Loop through expenses -->
+          <% for(var i = 0; i < expenses.length; i++) {%>
+          <li class="expense">
+            <!-- Output name from the iterated quote object -->
+            <span><%= expenses[i].description %></span>:
+            <!-- Output quote from the iterated quote object -->
+            <span><%= expenses[i].expense %></span>
+          </li>
+          <% } %>
+        </ul>    
     </div>
-
-
-
 
     <script src="js/main.js" > </script>
     
