@@ -1,6 +1,11 @@
 h1{
     color: red;
+    font-size: 2rem;
 }
 body{
     background: lightblue;
+}
+.expenses{
+    width: 45%;
+    border: 1px solid black;
 }

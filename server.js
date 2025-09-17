@@ -3,7 +3,9 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 const MongoClient = require('mongodb').MongoClient
-const connectionString = 'mongodb+srv://user:pss@expensesclusterone.pxpy4ui.mongodb.net/?retryWrites=true&w=majority&appName=ExpensesClusterOne'
+const connectionString = process.env.DB_STRING
+
+require('dotenv').config()
 
 
 MongoClient.connect(connectionString).then( client => {
@@ -21,6 +23,8 @@ MongoClient.connect(connectionString).then( client => {
     app.use(express.urlencoded({extended: true}))
     //tells express to pull files from the public folder
     app.use(express.static('public'))
+    //using JSON for fetch requests
+    app.use(express.json())
 
 
     app.get('/', (req, res) =>{
@@ -37,14 +41,23 @@ MongoClient.connect(connectionString).then( client => {
             
         
     })
-    app.post('/expenses', (req,res) =>{
+    app.post('/addExpenses', (req,res) =>{
         expensesCollection
-        .insertOne(req.body)
+        .insertOne({description: req.body.description, expense: req.body.expense})
         .then(result => {
             res.redirect('/')
             console.log(result)
         })
         .catch(error => console.error(error))
+    })
+
+    app.delete('/deleteExpenses', (req,res) =>{
+        console.log(req.body.description)
+        db.collection('expenses').deleteOne({description: req.body.description})
+        .then( result => {
+            console.log('Expense Delay-tay')
+            res.json('Removed Expense')
+        })
     })
 
     app.listen(PORT, ()=>{

@@ -9,7 +9,8 @@
 </head>
 <body>
     <h1> Balance Tracker </h1>
-    <form action="/expenses" method="POST">
+    <!-- your form request will align with the post request! -->
+    <form action="/addExpenses" method="POST">
         <input type="text" placeholder="description" name="description"/>
         <input type="number" placeholder="enter $$$ amount" name="expense"/>
         <button type="submit">Submit Expense</button>
@@ -24,12 +25,13 @@
             <span><%= expenses[i].description %></span>:
             <!-- Output quote from the iterated quote object -->
             <span><%= expenses[i].expense %></span>
+            <button class="delete-button"> Delete </button>
           </li>
           <% } %>
         </ul>    
     </div>
 
-    <script src="js/main.js" > </script>
+    <script src="/main.js" > </script>
     
 </body>
 </html>
