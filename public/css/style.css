@@ -1,6 +1,12 @@
 h1{
-    color: red;
+    color: rgb(0, 0, 0);
     font-size: 2rem;
+    text-align: center;
+}
+h3{
+    font-size: 1.5rem;
+    width: 45%;
+    margin: 1% 0;
 }
 body{
     background: lightblue;
@@ -8,4 +14,32 @@ body{
 .expenses{
     width: 45%;
     border: 1px solid black;
+}
+form,
+.tempContainer{
+    border: 2px solid red;
+    text-align: center;
+    margin-top: 1%;
+    
+}
+form{
+    margin-left: 25%;
+    width: 50%;
+}
+form > input{
+    width: 50%;
+    height: 25px;
+}
+form > button{
+    width: 51%;
+    
+}
+.itemsMatrix{
+    border: 1px solid blue;
+    width: 25%;
+    display: inline-block;
+    font-size: 1.2rem;
+}
+.expense{
+    list-style: none;
 }

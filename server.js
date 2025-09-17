@@ -3,9 +3,9 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 const MongoClient = require('mongodb').MongoClient
-const connectionString = process.env.DB_STRING
+const connectionString = ''
 
-require('dotenv').config()
+//require('dotenv').config()
 
 
 MongoClient.connect(connectionString).then( client => {
@@ -41,22 +41,42 @@ MongoClient.connect(connectionString).then( client => {
             
         
     })
-    app.post('/addExpenses', (req,res) =>{
+    app.post('/addTransaction', (req,res) =>{
+        const {description, amount, type} = req.body;
+
         expensesCollection
-        .insertOne({description: req.body.description, expense: req.body.expense})
+        .insertOne({
+            description: description, 
+            amount: amount,
+            type: type
+        })
         .then(result => {
+            console.log(`Transaction Added! Result:${result.acknowledged}`)
             res.redirect('/')
-            console.log(result)
+            
         })
         .catch(error => console.error(error))
     })
 
     app.delete('/deleteExpenses', (req,res) =>{
-        console.log(req.body.description)
-        db.collection('expenses').deleteOne({description: req.body.description})
+        //destructure the request body
+        const {description, amount, type} = req.body;
+
+        //logging the data for debugging
+        console.log(description, amount, type);
+
+        db.collection('expenses').deleteOne({
+            description: description,
+            amount: amount,
+            type: type
+        })
         .then( result => {
-            console.log('Expense Delay-tay')
-            res.json('Removed Expense')
+            console.log('Transaction deleted!')
+            if (result.deletedCount === 0) {
+                res.json('No transaction matched the criteria.');
+            } else {
+                res.json('Transaction successfully removed.');
+            }
         })
     })
 

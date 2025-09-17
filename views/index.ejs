@@ -10,21 +10,28 @@
 <body>
     <h1> Balance Tracker </h1>
     <!-- your form request will align with the post request! -->
-    <form action="/addExpenses" method="POST">
-        <input type="text" placeholder="description" name="description"/>
-        <input type="number" placeholder="enter $$$ amount" name="expense"/>
-        <button type="submit">Submit Expense</button>
+    <form action="/addTransaction" method="POST">
+        <input type="text" placeholder="Description" name="description"/>
+        <input type="number" placeholder="Amount" name="amount"/>
+        <label for="type"> Type: </label>
+        <select id="type" name="type">
+          <option value="expense">Expense </option>
+          <option value="income"> Income </option>
+        </select>
+        <button type="submit">Submit Transaction</button>
     </form>
     
     <div class="tempContainer">
+        <h3> Items </h3>
         <ul class="expenses">
           <!-- Loop through expenses -->
           <% for(var i = 0; i < expenses.length; i++) {%>
           <li class="expense">
-            <!-- Output name from the iterated quote object -->
-            <span><%= expenses[i].description %></span>:
-            <!-- Output quote from the iterated quote object -->
-            <span><%= expenses[i].expense %></span>
+            <!-- Output description from the iterated quote object -->
+            <span class="itemsMatrix"><%= expenses[i].description %></span>
+            <!-- Output amount from the iterated quote object -->
+            <span class="itemsMatrix"><%= expenses[i].amount %></span>
+            <span class="itemsMatrix"><%= expenses[i].type %></span>
             <button class="delete-button"> Delete </button>
           </li>
           <% } %>

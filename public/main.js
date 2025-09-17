@@ -4,21 +4,26 @@ Array.from(deleteOne).forEach((element) => {
     element.addEventListener('click', deleteExpense)
 })
 async function deleteExpense() {
-    const tempVar = this.parentNode.childNodes
-    const descrip = this.parentNode.childNodes[3].innerText
-    const expen = this.parentNode.childNodes[7].innerText
+    const parentNode = this.parentNode
+
+    const tempVar = parentNode.childNodes
+    const descrip = parentNode.childNodes[3].innerText
+    const amount = parentNode.childNodes[7].innerText
+    const type = parentNode.childNodes[9].innerText
     
     //this is to view the text from each span
     console.log(tempVar)
     console.log(descrip)
-    console.log(expen)
+    console.log(amount)
+    console.log(type)
     try{
         const response = await fetch('deleteExpenses', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               'description': descrip,
-              'expense': expen
+              'amount': amount,
+              'type': type
             })
           })
         const data = await response.json()
