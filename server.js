@@ -3,9 +3,9 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 const MongoClient = require('mongodb').MongoClient
-const connectionString = ''
 
-//require('dotenv').config()
+require('dotenv').config()
+const connectionString = process.env.DB_STRING
 
 
 MongoClient.connect(connectionString).then( client => {

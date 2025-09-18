@@ -12,10 +12,10 @@ async function deleteExpense() {
     const type = parentNode.childNodes[9].innerText
     
     //this is to view the text from each span
-    console.log(tempVar)
-    console.log(descrip)
-    console.log(amount)
-    console.log(type)
+    // console.log(tempVar)
+    // console.log(descrip)
+    // console.log(amount)
+    // console.log(type)
     try{
         const response = await fetch('deleteExpenses', {
             method: 'delete',
