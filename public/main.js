@@ -1,8 +1,14 @@
 const deleteOne = document.querySelectorAll('.delete-button')
+const updateBtns = document.querySelectorAll('.update-button')
 
 Array.from(deleteOne).forEach((element) => {
     element.addEventListener('click', deleteExpense)
 })
+Array.from(updateBtns).forEach((element) => {
+    element.addEventListener('click', updateTransaction)
+})
+
+
 async function deleteExpense() {
     const parentNode = this.parentNode
 
@@ -33,5 +39,8 @@ async function deleteExpense() {
     }catch(err){
         console.log(err)
     }
+    
+}
+async function updateTransaction(){
     
 }

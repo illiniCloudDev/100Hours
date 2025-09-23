@@ -46,7 +46,7 @@ MongoClient.connect(connectionString).then( client => {
 
         expensesCollection
         .insertOne({
-            description: description, 
+            description: description.trim(), 
             amount: amount,
             type: type
         })
@@ -56,6 +56,9 @@ MongoClient.connect(connectionString).then( client => {
             
         })
         .catch(error => console.error(error))
+    })
+    app.put('/updateType', (req, res) => {
+        
     })
 
     app.delete('/deleteExpenses', (req,res) =>{

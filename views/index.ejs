@@ -22,7 +22,17 @@
     </form>
     
     <div class="tempContainer">
-        <h3> Items </h3>
+        <h3> Items </h3>          
+        <%
+          let totalIncome = 0;
+          for(var i = 0; i < expenses.length; i++){
+            if(expenses[i].type === 'income'){
+              totalIncome += Number(expenses[i].amount)
+            }
+          }
+        %>
+        <h3> Total Income: <%= totalIncome %></h3>
+
         <ul class="expenses">
           <!-- Loop through expenses -->
           <% for(var i = 0; i < expenses.length; i++) {%>
@@ -35,7 +45,8 @@
             <button class="delete-button"> Delete </button>
           </li>
           <% } %>
-        </ul>    
+        </ul>
+
     </div>
 
     <script src="/main.js" > </script>
