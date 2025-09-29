@@ -11,7 +11,7 @@ h3{
 body{
     background: lightblue;
 }
-.expenses{
+.ulContainer{
     width: 45%;
     border: 1px solid black;
 }
@@ -43,6 +43,6 @@ form > button{
 .expense{
     list-style: none;
 }
-.income{
+/* .income{
     color: #006e00;
-}
+} */

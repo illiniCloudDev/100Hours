@@ -70,16 +70,14 @@ MongoClient.connect(connectionString).then( client => {
     })
     app.put('/updateTransaction', (req, res) => {
 
-        const {id, description, amount, type} = req.body;
+        const {id, amount, type} = req.body;
         
         expensesCollection.updateOne(
             {_id: new ObjectId(id)},
 
             {
                 $set: {
-                    description: description.trim(),
-                    amount: amount,
-                    type: type
+                    amount: amount
                 }
             }
         )

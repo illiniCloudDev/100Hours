@@ -38,7 +38,7 @@
         <h3> Total Expense: <%= totalExpense %></h3>
         <h3> Net: <%= totalIncome - totalExpense %></h3>
 
-        <ul class="expenses">
+        <ul class="ulContainer">
           <!-- Loop through expenses -->
           <% for(var i = 0; i < expenses.length; i++) {%>
             
@@ -49,10 +49,10 @@
             <!-- Output description from the iterated  object -->
             <span class="itemsMatrix description"><%= expenses[i].description %></span>
             <!-- Output amount from the iterated  object -->
-            <span class="itemsMatrix <%= typeClass %>"><%= expenses[i].amount %></span>
-            <span class="itemsMatrix"><%= expenses[i].type.toUpperCase() %></span>
+            <span class="itemsMatrix amount <%= typeClass %>"><%= expenses[i].amount %></span>
+            <span class="itemsMatrix type"><%= expenses[i].type.toUpperCase() %></span>
 
-            
+            <button class="update-button"> Update Amount </button>
             <button class="delete-button"> Delete </button>
           </li>
           <% } %>

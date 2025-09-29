@@ -44,7 +44,35 @@ async function deleteExpense() {
 async function updateTransaction(){
     const li = this.parentNode;
 
-    const expenseId = li.dataset.id 
+    const expenseId = li.dataset.id;
 
+    const oldAmount = li.querySelector('.amount').innerText;
+    //const oldType = li.querySelector('.type').innerText.toLowerCase().trim(); 
+
+    const newAmount = prompt('Enter new Amount:', oldAmount);
+
+    //const newType = (oldType === 'expense') ? 'income' : 'expense'; 
     
-}
+    if(isNaN(newAmount) || newAmount.trim() === ''){
+        alert('Invalid amount entered. Update cancelled.');
+        return;
+    }
+    try {
+        const response = await fetch('updateTransaction', { // Match this path to server.js
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: expenseId,
+                amount: newAmount
+                //type: newType // Send the toggled type
+            })
+        });
+
+        const data = await response.json();
+        console.log(data);
+        location.reload(); // Reload to reflect changes
+
+    } catch (err) {
+        console.error("Error updating transaction:", err);
+    }
+}    
