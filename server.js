@@ -3,6 +3,8 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 const MongoClient = require('mongodb').MongoClient
+const ObjectId = require('mongodb').ObjectId
+
 
 require('dotenv').config()
 const connectionString = process.env.DB_STRING
@@ -42,6 +44,15 @@ MongoClient.connect(connectionString).then( client => {
         
     })
     app.post('/addTransaction', (req,res) =>{
+
+        //this "object" is what we are receiving in JSON
+        //we are using a feature of JavaScript called destructuring assignment
+        // this would transalate to the following 
+
+        //const description = req.body.description; 
+        // const amount = req.body.amount; 
+        // const type = req.body.type;
+
         const {description, amount, type} = req.body;
 
         expensesCollection
@@ -57,7 +68,26 @@ MongoClient.connect(connectionString).then( client => {
         })
         .catch(error => console.error(error))
     })
-    app.put('/updateType', (req, res) => {
+    app.put('/updateTransaction', (req, res) => {
+
+        const {id, description, amount, type} = req.body;
+        
+        expensesCollection.updateOne(
+            {_id: new ObjectId(id)},
+
+            {
+                $set: {
+                    description: description.trim(),
+                    amount: amount,
+                    type: type
+                }
+            }
+        )
+        .then(result => {
+            console.log('Transaction Updated!');
+            res.json('Transaction successfully updated!')
+        })
+        .catch( error => console.error(error));
         
     })
 
@@ -71,7 +101,7 @@ MongoClient.connect(connectionString).then( client => {
         db.collection('expenses').deleteOne({
             description: description,
             amount: amount,
-            type: type
+            type: type.toLowerCase()
         })
         .then( result => {
             console.log('Transaction deleted!')

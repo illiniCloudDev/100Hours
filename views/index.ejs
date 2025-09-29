@@ -22,7 +22,7 @@
     </form>
     
     <div class="tempContainer">
-        <h3> Items </h3>          
+        <h3> Items: <%= expenses.length %></h3>          
         <%
           let totalIncome = 0;
           let totalExpense = 0;
@@ -41,12 +41,18 @@
         <ul class="expenses">
           <!-- Loop through expenses -->
           <% for(var i = 0; i < expenses.length; i++) {%>
-          <li class="expense">
-            <!-- Output description from the iterated quote object -->
-            <span class="itemsMatrix"><%= expenses[i].description %></span>
-            <!-- Output amount from the iterated quote object -->
-            <span class="itemsMatrix"><%= expenses[i].amount %></span>
+            
+            <!-- Create a variable to hold the type -->
+            <% const typeClass = expenses[i].type.toLowerCase(); %> 
+            <!-- included a data-id to pull the information much easily and efficient -->
+          <li class="expense" data-id="<%= expenses[i]._id %>">
+            <!-- Output description from the iterated  object -->
+            <span class="itemsMatrix description"><%= expenses[i].description %></span>
+            <!-- Output amount from the iterated  object -->
+            <span class="itemsMatrix <%= typeClass %>"><%= expenses[i].amount %></span>
             <span class="itemsMatrix"><%= expenses[i].type.toUpperCase() %></span>
+
+            
             <button class="delete-button"> Delete </button>
           </li>
           <% } %>

@@ -42,5 +42,9 @@ async function deleteExpense() {
     
 }
 async function updateTransaction(){
+    const li = this.parentNode;
+
+    const expenseId = li.dataset.id 
+
     
 }

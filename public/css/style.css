@@ -43,3 +43,6 @@ form > button{
 .expense{
     list-style: none;
 }
+.income{
+    color: #006e00;
+}
