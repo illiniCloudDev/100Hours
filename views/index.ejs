@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1> Balance Tracker </h1>
+  <header> 
+    <h1> Balance Tracker </h1>  
+  </header>
     <!-- your form request will align with the post request! -->
     <form action="/addTransaction" method="POST">
         <input type="text" placeholder="Description" name="description"/>
@@ -44,8 +46,10 @@
             
             <!-- Create a variable to hold the type -->
             <% const typeClass = expenses[i].type.toLowerCase(); %> 
+            <!-- Creating a second variable to add to the li variable - parent -->
+            <% const typeClassForLi = expenses[i].type.toUpperCase(); %> 
             <!-- included a data-id to pull the information much easily and efficient -->
-          <li class="expense" data-id="<%= expenses[i]._id %>">
+          <li class="transactions <%= typeClassForLi %>" data-id="<%= expenses[i]._id %>">
             <!-- Output description from the iterated  object -->
             <span class="itemsMatrix description"><%= expenses[i].description %></span>
             <!-- Output amount from the iterated  object -->

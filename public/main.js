@@ -41,6 +41,10 @@ async function deleteExpense() {
     }
     
 }
+
+//pseudo code 
+//form has to send information to db 
+//the type has to be called something else to prevent confusion with the current class in the css
 async function updateTransaction(){
     const li = this.parentNode;
 
