@@ -11,19 +11,28 @@
   <header> 
     <h1> Balance Tracker </h1>  
   </header>
+  <div>
+    Temp Div
+  </div>
     <!-- your form request will align with the post request! -->
-    <form action="/addTransaction" method="POST">
-        <input type="text" placeholder="Description" name="description"/>
-        <input type="number" placeholder="Amount" name="amount"/>
-        <label for="type"> Type: </label>
-        <select id="type" name="type">
-          <option value="expense">Expense </option>
-          <option value="income"> Income </option>
-        </select>
-        <button type="submit">Submit Transaction</button>
-    </form>
+     <div class="formContainer">
+      <form action="/addTransaction" method="POST">
+          <input type="text" placeholder="Description" name="description"/>
+          <input type="number" placeholder="Amount" name="amount"/>
+          <label for="type"> Type: </label>
+          <div>
+            <select id="type" name="type">
+              <option value="expense">Expense </option>
+              <option value="income"> Income </option>
+            </select>
+            <button type="submit">Submit Transaction</button>
+          </div>
+
+      </form>
+     </div>
+
     
-    <div class="tempContainer">
+    <div class="transactionsContainer">
         <h3> Items: <%= expenses.length %></h3>          
         <%
           let totalIncome = 0;

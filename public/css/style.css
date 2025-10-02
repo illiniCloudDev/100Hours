@@ -1,3 +1,10 @@
+body{
+    color: #333333;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
 header{
     border: 1px solid greenyellow;
     height: 75px;
@@ -8,8 +15,12 @@ h1{
     width: 20%;
     font-size: 2.2rem;
     font-weight: 700;
-    margin-top: 20px;
     text-align: center;
+}
+.formContainer{
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding-left: 10%;
 }
 h3{
     font-size: 1.5rem;
@@ -20,27 +31,40 @@ body{
     background: lightblue;
 }
 .ulContainer{
-    width: 45%;
+    width: 65%;
     border: 1px solid black;
 }
-form,
-.tempContainer{
+
+.transactionsContainer{
     border: 2px solid red;
     text-align: center;
     margin-top: 1%;
     
 }
 form{
-    margin-left: 25%;
-    width: 50%;
+    margin-top: 2%;
 }
 form > input{
-    width: 50%;
+
+    width: 70%;
     height: 25px;
+    text-align: center;
+}
+form > div{
+    width: 100%;
+    /* border: 1px solid black; */
+}
+form > div button, 
+form > div select{
+    width: 40%;
+    height: 40px;
 }
 form > button{
-    width: 51%;
-    
+    width: 60%;
+}
+form > label{
+    display: block;
+    width: 70%;
 }
 .itemsMatrix{
     border: 1px solid blue;
