@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
-    name:{
+    description:{
         type: String,
         required: true, 
         trim: true,
@@ -16,15 +16,20 @@ const TransactionSchema = new mongoose.Schema({
         required: true,
         enum: ['Income', 'Expense'],
     },
-    category: {
-        type: String, 
-        required: false,
-    },
+    // category: {
+    //     type: String, 
+    //     required: false,
+    // },
     //will be implementing date down the road - using current schema for testing 
     // date:{
     //     type: Date,
     //     default: Date.now,
     // },
+},{
+    //we are only keeping this to route the request to the actual collection called expense
+    //will update the actual collection after testing 
+    collection: 'expenses'
+
 });
 
 //'Transaction' (The First Argument): This is the Model Name (or Singular Collection Name)

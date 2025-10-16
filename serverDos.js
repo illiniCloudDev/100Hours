@@ -4,7 +4,9 @@ const connectDB = require('./config/database')
 const transactionRoutes = require('./routes/transactionsInRoutes')
 
 
-require('dotenv').config({path: './config.env'})
+require('dotenv').config({path: './config/.env'})
+
+//console.log('--- DOTENV DEBUG --- DB_STRING:', process.env.DB_STRING);
 
 //calling the function to our db
 connectDB()
