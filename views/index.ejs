@@ -51,24 +51,24 @@
 
         <ul class="ulContainer">
           <!-- Loop through expenses -->
-          <% for(var i = 0; i < expenses.length; i++) {%>
-            
+        <% expenses.forEach( el => { %>
             <!-- Create a variable to hold the type -->
-            <% const typeClass = expenses[i].type.toLowerCase(); %> 
+            <% const typeClass = el.type.toLowerCase(); %>
             <!-- Creating a second variable to add to the li variable - parent -->
-            <% const typeClassForLi = expenses[i].type.toUpperCase(); %> 
-            <!-- included a data-id to pull the information much easily and efficient -->
-          <li class="transactions <%= typeClassForLi %>" data-id="<%= expenses[i]._id %>">
-            <!-- Output description from the iterated  object -->
-            <span class="itemsMatrix description"><%= expenses[i].description %></span>
-            <!-- Output amount from the iterated  object -->
-            <span class="itemsMatrix amount <%= typeClass %>"><%= expenses[i].amount %></span>
-            <span class="itemsMatrix type"><%= expenses[i].type.toUpperCase() %></span>
+            <% const typeClassForLi = el.type.toUpperCase(); %>
 
-            <button class="update-button"> Update Amount </button>
-            <button class="delete-button"> Delete </button>
-          </li>
-          <% } %>
+            <li class="transactions <%= typeClassForLi %>" data-id='<%=el._id%>'>
+
+                <!-- Output description from the iterated  object -->
+                <span class="itemsMatrix description"><%= el.description %></span>
+                <!-- Output amount from the iterated  object -->
+                <span class="itemsMatrix amount <%= typeClass %>"><%= el.amount %></span>
+                <span class="itemsMatrix type"><%= el.type.toUpperCase() %></span>
+
+                <button class="update-button"> Update Amount </button>
+                <button class="delete-button"> Delete </button>                
+            </li>
+        <% }) %>    
         </ul>
 
     </div>

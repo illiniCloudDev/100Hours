@@ -18,6 +18,19 @@ module.exports = {
         } catch (err) {
             console.log(err)            
         }
-    }
+    },
+    deleteTransaction: async(req, res) => {
+        //console.log for testing purposes
+        //console.log(req.body.transactionIdFromJSFile)
+        try {
+            await Transaction.findOneAndDelete({_id:req.body.transactionIdFromJSFile})
+            console.log('Deleted Transaction!')
+
+            res.json('Response Received!')
+            
+        } catch (err) {
+            console.log(err)   
+        }
+    },
     
 }

@@ -10,26 +10,16 @@ Array.from(updateBtns).forEach((element) => {
 
 
 async function deleteExpense() {
-    const parentNode = this.parentNode
 
-    const tempVar = parentNode.childNodes
-    const descrip = parentNode.childNodes[3].innerText
-    const amount = parentNode.childNodes[7].innerText
-    const type = parentNode.childNodes[9].innerText
+    //you only need the ID - no need for the properties 
+    const transactionId = this.parentNode.dataset.id
     
-    //this is to view the text from each span
-    // console.log(tempVar)
-    // console.log(descrip)
-    // console.log(amount)
-    // console.log(type)
     try{
-        const response = await fetch('deleteExpenses', {
+        const response = await fetch('/', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              'description': descrip,
-              'amount': amount,
-              'type': type
+              'transactionIdFromJSFile': transactionId,
             })
           })
         const data = await response.json()
