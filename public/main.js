@@ -15,7 +15,7 @@ async function deleteExpense() {
     const transactionId = this.parentNode.dataset.id
     
     try{
-        const response = await fetch('/', {
+        const response = await fetch('/deleteTransaction', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

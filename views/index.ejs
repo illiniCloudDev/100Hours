@@ -16,14 +16,14 @@
   </div>
     <!-- your form request will align with the post request! -->
      <div class="formContainer">
-      <form action="/addTransaction" method="POST">
+      <form action="/createTransaction" method="POST">
           <input type="text" placeholder="Description" name="description"/>
           <input type="number" placeholder="Amount" name="amount"/>
           <label for="type"> Type: </label>
           <div>
             <select id="type" name="type">
-              <option value="expense">Expense </option>
-              <option value="income"> Income </option>
+              <option value="Expense">Expense</option>
+              <option value="Income">Income</option>
             </select>
             <button type="submit">Submit Transaction</button>
           </div>
@@ -37,13 +37,13 @@
         <%
           let totalIncome = 0;
           let totalExpense = 0;
-          for(var i = 0; i < expenses.length; i++){
-            if(expenses[i].type === 'income'){
-              totalIncome += Number(expenses[i].amount)
-            }else{
-              totalExpense += Number(expenses[i].amount)
-            }
-          }
+          expenses.forEach(el => {
+              if(el.type === 'Income'){
+                totalIncome += Number(el.amount)
+              } else {
+                totalExpense += Number(el.amount)
+              }
+            })
         %>
         <h3> Total Income: <%= totalIncome %></h3>
         <h3> Total Expense: <%= totalExpense %></h3>

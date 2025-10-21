@@ -19,6 +19,17 @@ module.exports = {
             console.log(err)            
         }
     },
+    createTransaction: async (req, res) => {
+        //console.log for testing purposes
+        console.log(req.body)
+        try {
+            await Transaction.create({description:req.body.description, amount:req.body.amount,type:req.body.type})
+            console.log('Transaction Added!')
+            res.redirect('/')            
+        } catch (err) {
+            console.log(err)   
+        }
+    },    
     deleteTransaction: async(req, res) => {
         //console.log for testing purposes
         //console.log(req.body.transactionIdFromJSFile)
