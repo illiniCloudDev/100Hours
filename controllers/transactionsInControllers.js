@@ -13,6 +13,7 @@ module.exports = {
 
             const allTransactions = await Transaction.find()
             
+            //use expenses variable for our index.ejs
             res.render('index.ejs', {expenses: allTransactions})
             
         } catch (err) {
@@ -21,7 +22,7 @@ module.exports = {
     },
     createTransaction: async (req, res) => {
         //console.log for testing purposes
-        console.log(req.body)
+        //console.log(req.body)
         try {
             await Transaction.create({description:req.body.description, amount:req.body.amount,type:req.body.type})
             console.log('Transaction Added!')
@@ -29,6 +30,24 @@ module.exports = {
         } catch (err) {
             console.log(err)   
         }
+    },
+    updateTransactionAmount: async (req, res) => {
+        
+        console.log(req.body.amount, req.body.transactionIdFromJSFile)
+
+        try {
+            await Transaction.findOneAndUpdate(
+                {_id:req.body.transactionIdFromJSFile},
+                {_id:req.body.amount}
+            );
+
+            console.log('Transaction Amount Updated!')
+            res.json('Update Completed!');
+            
+        } catch (err) {
+            console.log(err)            
+        }
+        
     },    
     deleteTransaction: async(req, res) => {
         //console.log for testing purposes
