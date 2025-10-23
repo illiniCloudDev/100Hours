@@ -38,7 +38,7 @@ module.exports = {
         try {
             await Transaction.findOneAndUpdate(
                 {_id:req.body.transactionIdFromJSFile},
-                {_id:req.body.amount}
+                {amount:req.body.amount}
             );
 
             console.log('Transaction Amount Updated!')

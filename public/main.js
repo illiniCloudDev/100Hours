@@ -38,7 +38,7 @@ async function deleteExpense() {
 async function updateTransaction(){
     const li = this.parentNode;
 
-    const expenseId = li.dataset.id;
+    const transactionId = li.dataset.id;
 
     const oldAmount = li.querySelector('.amount').innerText;
     //const oldType = li.querySelector('.type').innerText.toLowerCase().trim(); 
@@ -52,11 +52,11 @@ async function updateTransaction(){
         return;
     }
     try {
-        const response = await fetch('updateTransaction', { // Match this path to server.js
+        const response = await fetch('/updateTransaction', { // Match this path to routes file transactionsInRoutes.js
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: expenseId,
+                transactionIdFromJSFile: transactionId,
                 amount: newAmount
                 //type: newType // Send the toggled type
             })
