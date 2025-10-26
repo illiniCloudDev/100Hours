@@ -6,9 +6,9 @@ const editableAmounts = document.querySelectorAll('.editable-amount')
 Array.from(deleteOne).forEach((element) => {
     element.addEventListener('click', deleteExpense)
 })
-Array.from(updateBtns).forEach((element) => {
-    element.addEventListener('click', updateTransaction)
-})
+// Array.from(updateBtns).forEach((element) => {
+//     element.addEventListener('click', updateTransaction)
+// })
 Array.from(editableAmounts).forEach((element) =>{
     element.addEventListener('click', convertToInput)
 })
@@ -39,41 +39,41 @@ async function deleteExpense() {
 //pseudo code 
 //form has to send information to db 
 //the type has to be called something else to prevent confusion with the current class in the css
-async function updateTransaction(){
-    const li = this.parentNode;
+// async function updateTransaction(){
+//     const li = this.parentNode;
 
-    const transactionId = li.dataset.id;
+//     const transactionId = li.dataset.id;
 
-    const oldAmount = li.querySelector('.amount').innerText;
-    //const oldType = li.querySelector('.type').innerText.toLowerCase().trim(); 
+//     const oldAmount = li.querySelector('.amount').innerText;
+//     //const oldType = li.querySelector('.type').innerText.toLowerCase().trim(); 
 
-    const newAmount = prompt('Enter new Amount:', oldAmount);
+//     const newAmount = prompt('Enter new Amount:', oldAmount);
 
-    //const newType = (oldType === 'expense') ? 'income' : 'expense'; 
+//     //const newType = (oldType === 'expense') ? 'income' : 'expense'; 
     
-    if(isNaN(newAmount) || newAmount.trim() === ''){
-        alert('Invalid amount entered. Update cancelled.');
-        return;
-    }
-    try {
-        const response = await fetch('/updateTransaction', { // Match this path to routes file transactionsInRoutes.js
-            method: 'put',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                transactionIdFromJSFile: transactionId,
-                amount: newAmount
-                //type: newType // Send the toggled type
-            })
-        });
+//     if(isNaN(newAmount) || newAmount.trim() === ''){
+//         alert('Invalid amount entered. Update cancelled.');
+//         return;
+//     }
+//     try {
+//         const response = await fetch('/updateTransaction', { // Match this path to routes file transactionsInRoutes.js
+//             method: 'put',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({
+//                 transactionIdFromJSFile: transactionId,
+//                 amount: newAmount
+//                 //type: newType // Send the toggled type
+//             })
+//         });
 
-        const data = await response.json();
-        console.log(data);
-        location.reload(); // Reload to reflect changes
+//         const data = await response.json();
+//         console.log(data);
+//         location.reload(); // Reload to reflect changes
 
-    } catch (err) {
-        console.error("Error updating transaction:", err);
-    }
-}    
+//     } catch (err) {
+//         console.error("Error updating transaction:", err);
+//     }
+// }
 // Attach a click listener to the amount span. When clicked, swap the <span> for an <input> field.
 function convertToInput(e) {
     const originalSpan = e.target;
