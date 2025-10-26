@@ -1,5 +1,7 @@
 const deleteOne = document.querySelectorAll('.delete-button')
 const updateBtns = document.querySelectorAll('.update-button')
+//this variable will be used for making in line changes to our index.ejs on the amounts
+const editableAmounts = document.querySelectorAll('.editable-amount')
 
 Array.from(deleteOne).forEach((element) => {
     element.addEventListener('click', deleteExpense)
@@ -7,7 +9,9 @@ Array.from(deleteOne).forEach((element) => {
 Array.from(updateBtns).forEach((element) => {
     element.addEventListener('click', updateTransaction)
 })
-
+Array.from(editableAmounts).forEach((element) =>{
+    element.addEventListener('click', convertToInput)
+})
 
 async function deleteExpense() {
 
@@ -70,3 +74,72 @@ async function updateTransaction(){
         console.error("Error updating transaction:", err);
     }
 }    
+// Attach a click listener to the amount span. When clicked, swap the <span> for an <input> field.
+function convertToInput(e) {
+    const originalSpan = e.target;
+    const originalAmount = originalSpan.innerText;
+
+    //creating the new input
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.value = originalAmount;
+    input.classList.add('edit-input');
+
+    //replace the span w/ the input 
+    originalSpan.replaceWith(input)
+
+    //listen for enter key or blur
+    //blur just means losing focus or click somewhere else on the screen
+    //focus() really means focusing on the input element 
+    //the code below simply listens when we click somewhere else or click enter
+    //in either case the handleUpdate function will run 
+    input.focus();
+    input.addEventListener('blur', handleUpdate);
+    input.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter'){
+            input.blur();
+        }
+    })
+    //When the input loses focus (blur) or the user presses Enter, capture the new amount and send the PUT request.
+}
+async function handleUpdate(e) {
+    const input = e.target;
+    const newAmount = input.value;
+
+    const li = input.closest('li');
+    const transactionId = li.dataset.id; 
+
+    //checking if value is a number
+    if(newAmount == "" || isNaN(newAmount) || Number(newAmount) < 0){
+        // If invalid, just restore the original text
+        li.querySelector('.editable-amount').innerText = input.dataset.originalAmount;
+        return;
+    }
+    try {
+        //send PUT request to server
+        const response = await fetch('/updateTransaction', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                'transactionIdFromJSFile': transactionId,
+                'amount': newAmount
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        
+        //after success 
+        const newSpan = document.createElement('span');
+        newSpan.classList.add('itemsMatrix', 'amount', 'editable-amount');
+        newSpan.innerText = newAmount; 
+        newSpan.addEventListener('click', convertToInput)// re adding the event listener 
+        input.replaceWith(newSpan);
+
+        //refresh
+        window.location.reload();
+    } catch (err) {
+        console.error(err)
+        
+    }
+    
+}
