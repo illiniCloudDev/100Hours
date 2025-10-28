@@ -12,6 +12,29 @@ Array.from(deleteOne).forEach((element) => {
 Array.from(editableAmounts).forEach((element) =>{
     element.addEventListener('click', convertToInput)
 })
+//eventlistener for fullcalendar 
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // NOTE: Ensure this ID matches the <div> ID in your index.ejs
+  var calendarEl = document.getElementById('calendar'); 
+  
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    // Basic settings from the documentation
+    initialView: 'dayGridMonth',
+    
+    // Add a toolbar for navigation (Recommended)
+    headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek'
+    },
+    
+    // You will later add your dynamic events array here: events: [...]
+  });
+  
+  calendar.render();
+});
 
 async function deleteExpense() {
 
