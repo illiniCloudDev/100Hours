@@ -75,9 +75,41 @@
         </ul>
 
     </div>
-    <div id="calendar">
 
+    <header class="p-3 mb-4 bg-dark text-white"> 
+    <h1>Balance Tracker Dashboard</h1>  
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-4 p-4 bg-light">
+            
+            <h2 class="h4 mb-3">New Transaction</h2>
+            <div class="formContainer mb-5">
+                </div>
+
+            <div class="dashboard-summary">
+                <h2 class="h4 mb-3">Financial Overview</h2>
+                <div class="card p-3 mb-2">
+                    <p>Total Income: **<%= totalIncome %>**</p>
+                    <p>Total Expense: **<%= totalExpense %>**</p>
+                    <p class="fw-bold">Net Balance: **<%= totalIncome - totalExpense %>**</p>
+                </div>
+            </div>
+            
+            </div>
+
+        <div class="col-md-8 p-4">
+            <h2 class="h4 mb-3">Transaction Calendar</h2>
+            
+            <div id='calendar'></div> 
+
+        </div>
+        
     </div>
+</div>
+
     
     
     
