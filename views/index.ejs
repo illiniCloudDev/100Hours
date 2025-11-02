@@ -5,113 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>100 Hours</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js" rel="stylesheet" />
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header> 
-    <h1> Balance Tracker </h1>  
+    <h1> Balance Tracker </h1>
+        <!-- your form request will align with the post request! -->
+    <h2 class="h4 mb-3">New Transaction</h2>    
   </header>
-  <div>
-    Temp Div
-  </div>
-    <!-- your form request will align with the post request! -->
-     <div class="formContainer">
-      <form action="/createTransaction" method="POST">
-          <input type="text" placeholder="Description" name="description"/>
-          <input type="number" placeholder="Amount" name="amount"/>
-          <label for="type"> Type: </label>
-          <div>
-            <select id="type" name="type">
-              <option value="Expense">Expense</option>
-              <option value="Income">Income</option>
-            </select>
-            <button type="submit">Submit Transaction</button>
-          </div>
-
-      </form>
-     </div>
-
-    
-    <div class="transactionsContainer">
-        <h3> Items: <%= expenses.length %></h3>          
-        <%
-          let totalIncome = 0;
-          let totalExpense = 0;
-          expenses.forEach(el => {
-              if(el.type === 'Income'){
-                totalIncome += Number(el.amount)
-              } else {
-                totalExpense += Number(el.amount)
-              }
-            })
-        %>
-        <h3> Total Income: <%= totalIncome %></h3>
-        <h3> Total Expense: <%= totalExpense %></h3>
-        <h3> Net: <%= totalIncome - totalExpense %></h3>
-
-        <ul class="ulContainer">
-          <!-- Loop through expenses -->
-        <% expenses.forEach( el => { %>
-            <!-- Create a variable to hold the type -->
-            <% const typeClass = el.type.toLowerCase(); %>
-            <!-- Creating a second variable to add to the li variable - parent -->
-            <% const typeClassForLi = el.type.toUpperCase(); %>
-
-            <li class="transactions <%= typeClassForLi %>" data-id='<%=el._id%>'>
-
-                <!-- Output description from the iterated  object -->
-                <span class="itemsMatrix description"><%= el.description %></span>
-                <!-- Output amount from the iterated  object -->
-                <span class="itemsMatrix editable-amount amount <%= typeClass %>"><%= el.amount %></span>
-                <span class="itemsMatrix type"><%= el.type.toUpperCase() %></span>
-
-                <button class="update-button"> Update Amount </button>
-                <button class="delete-button"> Delete </button>                
-            </li>
-        <% }) %>    
-        </ul>
-
-    </div>
-
-    <header class="p-3 mb-4 bg-dark text-white"> 
-    <h1>Balance Tracker Dashboard</h1>  
-</header>
-
-<div class="container-fluid">
+  <!-- START HERE FOR THE LAYOUT  -->
+  <div class="container-fluid">
     <div class="row">
-
         <div class="col-md-4 p-4 bg-light">
-            
-            <h2 class="h4 mb-3">New Transaction</h2>
+            <h2 class="h4 mb-3"> New Transaction</h2>
+
             <div class="formContainer mb-5">
-                </div>
+                <form action="/createTransaction" method="POST">
 
-            <div class="dashboard-summary">
+                    <input type="text" placeholder="Description" name="description" class="form-control mb-2"/>
+                    <input type="number" placeholder="Amount" name="amount" class="form-control mb-2"/>
+                    <div>
+                        <select id="type" name="type" class="form-select form-select-sm mb-3" aria-label="Small select example">
+                            <option selected>Choose Type</option>
+                            <option value="Expense">Expense</option>
+                            <option value="Income">Income</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary w-100">Submit Transaction</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="dashboard-summary mb-4">
                 <h2 class="h4 mb-3">Financial Overview</h2>
-                <div class="card p-3 mb-2">
-                    <p>Total Income: **<%= totalIncome %>**</p>
-                    <p>Total Expense: **<%= totalExpense %>**</p>
-                    <p class="fw-bold">Net Balance: **<%= totalIncome - totalExpense %>**</p>
+                <div class="card p-3">
+                        <%
+                          let totalIncome = 0;
+                          let totalExpense = 0;
+                          expenses.forEach(el => {
+                              if(el.type === 'Income'){
+                                totalIncome += Number(el.amount)
+                              } else {
+                                totalExpense += Number(el.amount)
+                              }
+                          })
+                        %>
+                        <p>Total Income: **<%= totalIncome %>**</p>
+                        <p>Total Expense: **<%= totalExpense %>**</p>
+                        <p class="fw-bold">Net Balance: **<%= totalIncome - totalExpense %>**</p>
                 </div>
-            </div>
-            
-            </div>
 
-        <div class="col-md-8 p-4">
-            <h2 class="h4 mb-3">Transaction Calendar</h2>
+            </div>
             
-            <div id='calendar'></div> 
+            <div class="transactionsContainer">
+                <h3 class="h5 mb-3">Transactions (<%= expenses.length %>)</h3>
+                <ul class="ulContainer list-unstyled">
+                <!-- Loop through expenses -->
+                <% expenses.forEach( el => { %>
+                <!-- Create a variable to hold the type -->
+                <% const typeClass = el.type.toLowerCase(); %>
+                <!-- Creating a second variable to add to the li variable - parent -->
+                <% const typeClassForLi = el.type.toUpperCase(); %>
+
+                <li class="transactions <%= typeClassForLi %>" data-id='<%=el._id%>'>
+
+                    <!-- Output description from the iterated  object -->
+                    <span class="itemsMatrix description"><%= el.description %></span>
+                    <!-- Output amount from the iterated  object -->
+                    <span class="itemsMatrix editable-amount amount <%= typeClass %>"><%= el.amount %></span>
+                    <span class="itemsMatrix type"><%= el.type.toUpperCase() %></span>
+
+                    <button class="update-button btn btn-sm btn-info"> Update Amount </button>
+                    <button class="delete-button btn btn-sm btn-danger"> Delete </button>                
+                </li>
+                <% }) %>    
+                </ul>
+            </div>
 
         </div>
-        
+        <div class="col-md-8 p-4">
+                <h2 class="h4 mb-3">Transaction Calendar</h2>
+                <div id='calendar'></div> 
+            </div>
     </div>
-</div>
 
-    
-    
+  </div>
+
+
     
     <!--Scripts for bootstrap and fullCalendar   -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
