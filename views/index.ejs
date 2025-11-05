@@ -7,6 +7,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -14,12 +17,11 @@
   <header> 
     <h1> Balance Tracker </h1>
         <!-- your form request will align with the post request! -->
-    <h2 class="h4 mb-3">New Transaction</h2>    
   </header>
   <!-- START HERE FOR THE LAYOUT  -->
   <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4 p-4 bg-light">
+        <div class="col-md-5 p-4 bg-light">
             <h2 class="h4 mb-3"> New Transaction</h2>
 
             <div class="formContainer mb-5">
@@ -60,37 +62,52 @@
             </div>
             
             <div class="transactionsContainer">
-                <h3 class="h5 mb-3">Transactions (<%= expenses.length %>)</h3>
-                <ul class="ulContainer list-unstyled">
-                <!-- Loop through expenses -->
-                <% expenses.forEach( el => { %>
-                <!-- Create a variable to hold the type -->
-                <% const typeClass = el.type.toLowerCase(); %>
-                <!-- Creating a second variable to add to the li variable - parent -->
-                <% const typeClassForLi = el.type.toUpperCase(); %>
+                <h3 class="h5 mb-3">My Transactions (<%= expenses.length %>)</h3>
+                <!-- TABLE START -->
+                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col" class="text-center">Amount</th>
+                            <th scope="col" class="text-center">Type</th>
+                            <th scope="col" colspan="2" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through expenses -->
+                        <% expenses.forEach( el => { %>
+                        <!-- Create a variable to hold the type -->
+                        <% const typeClass = el.type.toLowerCase(); %>
+                        <!-- Creating a second variable to add to the tr variable - parent -->
+                        <% const typeClassForLi = el.type.toUpperCase(); %>
+                        <tr class="<%= typeClassForLi %>" data-id="<%=el._id%>">
+                            
+                            <td class="description"><%= el.description %></td>
+                            <td class="editable-amount amount <%= el.type.toLowerCase() %> text-center"><%= el.amount %></td>
+                            <td class="type text-center"><%= el.type.toUpperCase() %></td>
+                            <td class="text-center">
+                                <button class="update-button btn btn-sm btn-info w-100">Update Amount</button>
+                            </td>
+                            <td class="text-center">
+                                <button class="delete-button btn btn-sm btn-danger w-100">Delete</button>
+                            </td>
 
-                <li class="transactions <%= typeClassForLi %>" data-id='<%=el._id%>'>
+                        </tr>
+                        <% }) %>
+                        
+                    </tbody>
+                 </table>
+                <!-- OLD CODE -->
 
-                    <!-- Output description from the iterated  object -->
-                    <span class="itemsMatrix description"><%= el.description %></span>
-                    <!-- Output amount from the iterated  object -->
-                    <span class="itemsMatrix editable-amount amount <%= typeClass %>"><%= el.amount %></span>
-                    <span class="itemsMatrix type"><%= el.type.toUpperCase() %></span>
-
-                    <button class="update-button btn btn-sm btn-info"> Update Amount </button>
-                    <button class="delete-button btn btn-sm btn-danger"> Delete </button>                
-                </li>
-                <% }) %>    
-                </ul>
             </div>
 
         </div>
-        <div class="col-md-8 p-4">
+        <div class=" calendarContainer col-md-6 p-4">
                 <h2 class="h4 mb-3">Transaction Calendar</h2>
                 <div id='calendar'></div> 
-            </div>
+        </div>
+        
     </div>
-
   </div>
 
 

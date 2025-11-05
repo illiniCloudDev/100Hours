@@ -1,6 +1,7 @@
 body{
     color: #333333;
-    background: lightblue;
+    background: #F4F8FD;
+    font-family: 'Inter', sans-serif;
     /* padding: 20px;
     display: grid;
     grid-template-columns: 1fr 3fr; */
@@ -16,12 +17,13 @@ h1{
     font-size: 2.2rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 5%;
 }
 .formContainer{
-    background-color: #FFFFFF;
+    background-color: #F4F8FD;
     border-radius: 12px;
+    border: 1px solid rgb(170, 170, 170);
     padding-left: 10%;
+    padding-right: 10%;
 }
 h3{
     font-size: 1.5rem;
@@ -31,11 +33,13 @@ h3{
 
 .ulContainer{
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid rgb(0, 255, 0); */
 }
 
 .transactionsContainer{
-    border: 2px solid red;
+    background-color: #F4F8FD;
+    border: 2px solid rgb(170, 170, 170);
+    border-radius: 15px;
     text-align: center;
 }
 form{
@@ -52,24 +56,30 @@ form > div{
 }
 form > div button, 
 form > div select{
-    width: 100%;
-    height: 40px;
+    height: 50px;
 }
-form > button{
-    width: 100%;
-}
+
 form > label{
     display: block;
     width: 70%;
 }
+.calendarContainer{
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 15px;
+    background-color: #F4F8FD;
+    margin-left: auto;
+    margin-right: auto;
+}
+.liTransactions{
+    margin-top: 2%;
+    list-style: none;
+    border-bottom: 1px solid rgb(170, 170, 170);;
+}
 .itemsMatrix{
     border: 1px solid blue;
-    width: 25%;
+    width: 15%;
     display: inline-block;
-    font-size: 1.2rem;
-}
-.transactions{
-    list-style: none;
+    font-size: 1rem;
 }
 .income{
     color: #006e00;
