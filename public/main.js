@@ -99,8 +99,9 @@ async function deleteExpense() {
 // }
 // Attach a click listener to the amount span. When clicked, swap the <span> for an <input> field.
 function convertToInput(e) {
-    const originalSpan = e.target;
-    const originalAmount = originalSpan.innerText;
+    const originalTd = e.target;
+    
+    const originalAmount = originalTd.innerText;
 
     //creating the new input
     const input = document.createElement('input');
@@ -109,7 +110,7 @@ function convertToInput(e) {
     input.classList.add('edit-input');
 
     //replace the span w/ the input 
-    originalSpan.replaceWith(input)
+    originalTd.replaceWith(input)    
 
     //listen for enter key or blur
     //blur just means losing focus or click somewhere else on the screen
@@ -128,14 +129,15 @@ function convertToInput(e) {
 async function handleUpdate(e) {
     const input = e.target;
     const newAmount = input.value;
+    console.log(newAmount)
 
-    const li = input.closest('li');
-    const transactionId = li.dataset.id; 
+    const tr = input.closest('tr');
+    const transactionId = tr.dataset.id; 
 
     //checking if value is a number
     if(newAmount == "" || isNaN(newAmount) || Number(newAmount) < 0){
         // If invalid, just restore the original text
-        li.querySelector('.editable-amount').innerText = input.dataset.originalAmount;
+        tr.querySelector('.editable-amount').innerText = input.dataset.originalAmount;
         return;
     }
     try {
@@ -152,7 +154,7 @@ async function handleUpdate(e) {
         console.log(data);
         
         //after success 
-        const newSpan = document.createElement('span');
+        const newSpan = document.createElement('td');
         newSpan.classList.add('itemsMatrix', 'amount', 'editable-amount');
         newSpan.innerText = newAmount; 
         newSpan.addEventListener('click', convertToInput)// re adding the event listener 

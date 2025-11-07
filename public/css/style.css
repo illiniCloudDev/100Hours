@@ -75,12 +75,6 @@ form > label{
     list-style: none;
     border-bottom: 1px solid rgb(170, 170, 170);;
 }
-.itemsMatrix{
-    border: 1px solid blue;
-    width: 15%;
-    display: inline-block;
-    font-size: 1rem;
-}
 .income{
     color: #006e00;
 }
