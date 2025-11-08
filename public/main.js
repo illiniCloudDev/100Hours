@@ -36,11 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
   calendar.render();
 });
 
-async function deleteExpense() {
+async function deleteExpense(e) {
 
-    //you only need the ID - no need for the properties 
-    const transactionId = this.parentNode.dataset.id
+    //get button element
+    const clickedButton = e.target;
+
+    //getting the nearest parent and using tr since it is the parent element we are looking for 
+    const parentRow= clickedButton.closest('tr');
+
+    //we cann now get the parent's id
+    const transactionId = parentRow.dataset.id;
     
+    console.log(transactionId)
     try{
         const response = await fetch('/deleteTransaction', {
             method: 'delete',
@@ -48,10 +55,20 @@ async function deleteExpense() {
             body: JSON.stringify({
               'transactionIdFromJSFile': transactionId,
             })
-          })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
+          });
+          //checking if deletion was successful 
+          if(response.ok){
+            console.log(`Transaction ID:${transactionId} succesfully deleted, King!`)
+            //removing row from DOM
+            parentRow.remove();
+            //refresh
+            window.location.reload();
+          }else{
+            //server side error
+            const errorData = await response.json(); 
+            console.error('Failed to delete transaction', errorData)
+          }
+
 
     }catch(err){
         console.log(err)
