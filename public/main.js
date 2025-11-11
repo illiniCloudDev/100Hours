@@ -1,39 +1,63 @@
-const deleteOne = document.querySelectorAll('.delete-button')
-const updateBtns = document.querySelectorAll('.update-button')
-//this variable will be used for making in line changes to our index.ejs on the amounts
-const editableAmounts = document.querySelectorAll('.editable-amount')
 
-Array.from(deleteOne).forEach((element) => {
-    element.addEventListener('click', deleteExpense)
-})
+const updateBtns = document.querySelectorAll('.update-button')
 // Array.from(updateBtns).forEach((element) => {
 //     element.addEventListener('click', updateTransaction)
 // })
-Array.from(editableAmounts).forEach((element) =>{
-    element.addEventListener('click', convertToInput)
-})
-//eventlistener for fullcalendar 
 
+
+//eventlistener for fullcalendar 
 document.addEventListener('DOMContentLoaded', function() {
+
+    //delete 
+    const deleteOne = document.querySelectorAll('.delete-button');
+    //editable amounts by click -  in line changes 
+    const editableAmounts = document.querySelectorAll('.editable-amount');
+
+    //forEach on the arrays 
+    Array.from(deleteOne).forEach((element) => {
+    element.addEventListener('click', deleteExpense)
+    });
+
+    Array.from(editableAmounts).forEach((element) =>{
+    element.addEventListener('click', convertToInput)
+    });
+
+    //FullCalendar with interaction (drag)
+    let draggableEl = document.querySelector('.transactionsContainer');
+    let calendarEl = document.getElementById('calendar'); 
   
-  // NOTE: Ensure this ID matches the <div> ID in your index.ejs
-  var calendarEl = document.getElementById('calendar'); 
-  
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    // Basic settings from the documentation
-    initialView: 'dayGridMonth',
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        // Basic settings from the documentation
+        // plugins: [ FullCalendar.interactionPlugin, FullCalendar.dayGridPlugin ],
+        initialView: 'dayGridMonth',
     
-    // Add a toolbar for navigation (Recommended)
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek'
-    },
-    
-    // You will later add your dynamic events array here: events: [...]
-  });
-  
-  calendar.render();
+        // Add a toolbar for navigation (Recommended)
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek'
+        },
+        droppable: true //allows external dropping 
+    });
+    calendar.render();
+
+    //initialize draggable for transaction list 
+    if(draggableEl){
+        new FullCalendar.Draggable(draggableEl, {
+            //specify which children are draggable
+            itemSelector: 'tr',
+            //data to be passed when dropped
+            eventData: function(eventEl){
+                return {
+                    title: eventEl.querySelector('description').innerText,
+                    id: eventEl.dataset.id,
+
+                    duration: '01:00', // Example: 1 hour duration
+                    allDay: true
+                };
+            }
+        });
+    }
 });
 
 async function deleteExpense(e) {
@@ -146,7 +170,7 @@ function convertToInput(e) {
 async function handleUpdate(e) {
     const input = e.target;
     const newAmount = input.value;
-    console.log(newAmount)
+    
 
     const tr = input.closest('tr');
     const transactionId = tr.dataset.id; 
