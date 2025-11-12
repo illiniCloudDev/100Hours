@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     var calendar = new FullCalendar.Calendar(calendarEl, {
         // Basic settings from the documentation
-        // plugins: [ FullCalendar.interactionPlugin, FullCalendar.dayGridPlugin ],
+        plugins: [ FullCalendar.interactionPlugin, FullCalendar.dayGridPlugin ],
         initialView: 'dayGridMonth',
     
         // Add a toolbar for navigation (Recommended)
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             //data to be passed when dropped
             eventData: function(eventEl){
                 return {
-                    title: eventEl.querySelector('description').innerText,
+                    title: eventEl.querySelector('.description').innerText,
                     id: eventEl.dataset.id,
 
                     duration: '01:00', // Example: 1 hour duration
