@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     var calendar = new FullCalendar.Calendar(calendarEl, {
         // Basic settings from the documentation
-        plugins: [ FullCalendar.interactionPlugin, FullCalendar.dayGridPlugin ],
+        //plugins: [ FullCalendar.interactionPlugin, FullCalendar.dayGridPlugin ],
         initialView: 'dayGridMonth',
     
         // Add a toolbar for navigation (Recommended)
