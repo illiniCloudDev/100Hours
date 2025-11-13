@@ -23,12 +23,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     //FullCalendar with interaction (drag)
-    let draggableEl = document.querySelector('.transactionsContainer');
-    let calendarEl = document.getElementById('calendar'); 
+    var Calendar = FullCalendar.Calendar;
+    var Draggable = FullCalendar.Draggable;
+
+    let containerEl = document.getElementById('external-events');
+    let calendarEl = document.getElementById('calendar');
+
+
+    //initialize the external events
+    new Draggable(containerEl, {
+        itemSelector: 'tr',
+        eventData: function(eventEl){
+            return {
+                title: eventEl.querySelector('.description').innerText,
+                id: eventEl.dataset.id,
+            };}
+    });
   
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendar = new Calendar (calendarEl, {
         // Basic settings from the documentation
-        //plugins: [ FullCalendar.interactionPlugin, FullCalendar.dayGridPlugin ],
         initialView: 'dayGridMonth',
     
         // Add a toolbar for navigation (Recommended)
@@ -41,23 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
 
-    //initialize draggable for transaction list 
-    if(draggableEl){
-        new FullCalendar.Draggable(draggableEl, {
-            //specify which children are draggable
-            itemSelector: 'tr',
-            //data to be passed when dropped
-            eventData: function(eventEl){
-                return {
-                    title: eventEl.querySelector('.description').innerText,
-                    id: eventEl.dataset.id,
-
-                    duration: '01:00', // Example: 1 hour duration
-                    allDay: true
-                };
-            }
-        });
-    }
 });
 
 async function deleteExpense(e) {
