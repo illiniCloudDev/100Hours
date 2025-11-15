@@ -30,6 +30,7 @@
 
                     <input type="text" placeholder="Description" name="description" class="form-control mb-2"/>
                     <input type="number" placeholder="Amount" name="amount" class="form-control mb-2"/>
+                    <input type="date" placeholder="Date" name="date" class="form-control mb-2"/>
                     <div>
                         <select id="type" name="type" class="form-select form-select-sm mb-3" aria-label="Small select example">
                             <option selected>Choose Type</option>
@@ -68,6 +69,7 @@
                  <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">Date</th>
                             <th scope="col">Description</th>
                             <th scope="col" class="text-center">Amount</th>
                             <th scope="col" class="text-center">Type</th>
@@ -82,7 +84,7 @@
                         <!-- Creating a second variable to add to the tr variable - parent -->
                         <% const typeClassForLi = el.type.toUpperCase(); %>
                         <tr class="<%= typeClassForLi %>" data-id="<%=el._id%>">
-                            
+                            <td class="date"> <%= el.date.toDateString() %></td>
                             <td class="description"><%= el.description %></td>
                             <td class="editable-amount amount <%= el.type.toLowerCase() %> text-center"><%= el.amount %></td>
                             <td class="type text-center"><%= el.type.toUpperCase() %></td>

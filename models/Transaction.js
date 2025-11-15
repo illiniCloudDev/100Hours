@@ -21,10 +21,10 @@ const TransactionSchema = new mongoose.Schema({
     //     required: false,
     // },
     //will be implementing date down the road - using current schema for testing 
-    // date:{
-    //     type: Date,
-    //     default: Date.now,
-    // },
+    date:{
+        type: Date,
+        required: true,
+    },
 },{
     //we are only keeping this to route the request to the actual collection called expense
     //will update the actual collection after testing 

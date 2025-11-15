@@ -24,7 +24,7 @@ module.exports = {
         //console.log for testing purposes
         //console.log(req.body)
         try {
-            await Transaction.create({description:req.body.description, amount:req.body.amount,type:req.body.type})
+            await Transaction.create({description:req.body.description, amount:req.body.amount,date:req.body.date,type:req.body.type})
             console.log('Transaction Added!')
             res.redirect('/')            
         } catch (err) {
