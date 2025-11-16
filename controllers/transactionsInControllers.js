@@ -1,3 +1,4 @@
+const { get } = require('mongoose')
 const Transaction = require('../models/transaction')
 
 
@@ -18,6 +19,14 @@ module.exports = {
             
         } catch (err) {
             console.log(err)            
+        }
+    },
+    getCalendarEvents: async (req, res) => {
+        try {
+            const allTransactions = await Transaction.find();
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
     },
     createTransaction: async (req, res) => {
