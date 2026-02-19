@@ -50,7 +50,36 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek'
         },
-        droppable: true //allows external dropping 
+        droppable: true, //allows external dropping 
+        drop: function(info){
+            // Get the event ID from the dragged element
+            const transactionId = info.draggedEl.dataset.id;
+            const droppedDate = info.dateStr; // Get the new date in ISO format (YYYY-MM-DD)
+            console.log('Dropped event ID:', transactionId);
+            
+            //send a PUT request to the server to update the transaction's date
+            fetch(`/updateTransactionDate/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: transactionId,
+                    date: droppedDate
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Transaction date updated successfully');
+                    window.location.reload(); // Refresh the calendar to show the updated date
+                } else {
+                    console.error('Failed to update transaction date');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating transaction date:', error);
+            });
+        }
     });
     calendar.render();
 

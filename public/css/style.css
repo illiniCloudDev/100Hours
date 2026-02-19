@@ -1,3 +1,42 @@
+/* Core Layout */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+tbody > tr{
+    background-color: #1e1e1e 
+}
+.card, .bg-light, .transactionsContainer, .calendarContainer, header, .container-fluid {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333;
+    color: #e0e0e0;
+}
+.transactionsContainer > table > tbody > tr > td{
+    background-color: #6e6e6e
+}
+/* Table styling */
+.table {
+    color: #e0e0e0;
+}
+
+.table thead {
+    border-bottom: 2px solid #333;
+}
+
+/* FullCalendar Overrides */
+:root {
+    --fc-page-bg-color: #1e1e1e;
+    --fc-border-color: #333;
+    --fc-unthemed-rule-color: #333;
+    --fc-button-bg-color: #3498db;
+    --fc-button-border-color: #3498db;
+    --fc-event-bg-color: #3498db;
+}
+
+.fc-daygrid-day-number, .fc-col-header-cell-cushion {
+    color: #00548d;
+    text-decoration: none;
+}
 body{
     color: #333333;
     background: #F4F8FD;
@@ -8,8 +47,8 @@ body{
 }
 
 header{
-    border: 1px solid rgb(170, 170, 170);
-    margin-bottom: 1%;
+    border-bottom: 1px solid rgb(170, 170, 170);
+    /* margin-bottom: 1%; */
     height: 100px;
 }
 h1{
@@ -19,7 +58,7 @@ h1{
     text-align: center;
 }
 .formContainer{
-    background-color: #F4F8FD;
+    background-color: #343434;
     border-radius: 12px;
     border: 1px solid rgb(170, 170, 170);
     padding-left: 10%;

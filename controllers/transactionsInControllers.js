@@ -14,7 +14,7 @@ module.exports = {
 
             const allTransactions = await Transaction.find()
             //to test if we are getting the transactions from the database, we can log them to the console
-            console.log(allTransactions)
+            //console.log(allTransactions)
             
             //use expenses variable for our index.ejs
             res.render('index.ejs', {expenses: allTransactions})
@@ -42,10 +42,20 @@ module.exports = {
             console.log(err)   
         }
     },
-    // updateTransactionDate: async (req, res) => {
-    //     console.log(req.params.id);
-    //     console.log(req.body.date);
-    // },
+    updateTransactionDate: async (req, res) => {
+        console.log(req.body.id);
+        console.log(req.body.date);
+        try {
+            await Transaction.findOneAndUpdate(
+                {_id:req.body.id},
+                {date:req.body.date}
+            );
+            console.log('Transaction Date Updated!')
+            res.json('Update Completed!');
+        } catch (err) {
+            console.log(err)
+        }
+    },
     updateTransactionAmount: async (req, res) => {
         
         console.log(req.body.amount, req.body.transactionIdFromJSFile)
