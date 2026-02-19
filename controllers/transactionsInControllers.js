@@ -13,6 +13,8 @@ module.exports = {
             //Mongoose method, when called without any arguments, queries the MongoDB database and returns every single document (transaction) found in the transactions collection.
 
             const allTransactions = await Transaction.find()
+            //to test if we are getting the transactions from the database, we can log them to the console
+            console.log(allTransactions)
             
             //use expenses variable for our index.ejs
             res.render('index.ejs', {expenses: allTransactions})
@@ -31,7 +33,7 @@ module.exports = {
     },
     createTransaction: async (req, res) => {
         //console.log for testing purposes
-        //console.log(req.body)
+        console.log(req.body)
         try {
             await Transaction.create({description:req.body.description, amount:req.body.amount,date:req.body.date,type:req.body.type})
             console.log('Transaction Added!')
@@ -40,6 +42,10 @@ module.exports = {
             console.log(err)   
         }
     },
+    // updateTransactionDate: async (req, res) => {
+    //     console.log(req.params.id);
+    //     console.log(req.body.date);
+    // },
     updateTransactionAmount: async (req, res) => {
         
         console.log(req.body.amount, req.body.transactionIdFromJSFile)

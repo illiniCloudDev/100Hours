@@ -9,6 +9,6 @@ router.delete('/deleteTransaction', transactionsController.deleteTransaction)
 
 //Calendar routes will go here 
 router.get('/api/calendar-events', transactionsController.getCalendarEvents)
-router.put('/updateTransactionDate/:id', transactionsController.updateTransactionDate)
+//router.put('/updateTransactionDate/:id', transactionsController.updateTransactionDate)
 
 module.exports = router 
