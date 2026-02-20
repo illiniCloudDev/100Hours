@@ -14,6 +14,9 @@ tbody > tr{
 .transactionsContainer > table > tbody > tr > td{
     background-color: #6e6e6e
 }
+.transactionsContainer > table > tbody > tr > td.income{
+    color: #6efd86
+}
 /* Table styling */
 .table {
     color: #e0e0e0;

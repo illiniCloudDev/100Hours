@@ -50,7 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek'
         },
-        droppable: true, //allows external dropping 
+        droppable: true, //allows external dropping
+        //eventReceive is a callback function that is triggered when an event is received (dropped) onto the calendar. It logs the received event to the console.
+        eventReceive: function(info){
+            console.log('Event received:', info.event);
+        },
         drop: function(info){
             // Get the event ID from the dragged element
             const transactionId = info.draggedEl.dataset.id;
@@ -71,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     console.log('Transaction date updated successfully');
-                    window.location.reload(); // Refresh the calendar to show the updated date
+                    calendar.refetchEvents(); // Refresh the calendar to show the updated date
                 } else {
                     console.error('Failed to update transaction date');
                 }
