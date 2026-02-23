@@ -51,10 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth,timeGridWeek'
         },
         droppable: true, //allows external dropping
+
         //eventReceive is a callback function that is triggered when an event is received (dropped) onto the calendar. It logs the received event to the console.
         eventReceive: function(info){
             console.log('Event received:', info.event);
         },
+        events: '/api/calendar-events', // Fetch events from the server
+        
         drop: function(info){
             // Get the event ID from the dragged element
             const transactionId = info.draggedEl.dataset.id;
@@ -62,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Dropped event ID:', transactionId);
             
             //send a PUT request to the server to update the transaction's date
-            fetch(`/updateTransactionDate/`, {
+            fetch(`/updateTransactionDate`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

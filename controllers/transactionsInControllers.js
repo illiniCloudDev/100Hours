@@ -1,5 +1,6 @@
 const { get } = require('mongoose')
 const Transaction = require('../models/transaction')
+const { all } = require('../routes/transactionsInRoutes')
 
 
 
@@ -25,7 +26,20 @@ module.exports = {
     },
     getCalendarEvents: async (req, res) => {
         try {
-            const allTransactions = await Transaction.find();
+            const transactions = await Transaction.find( {
+                date: {
+                    $exists: true,
+                    $ne: null
+                }
+            });
+            const events = transactions.map(transaction => ({
+                id: transaction._id,
+                title: transaction.description,
+                start: transaction.date,
+                allDay: true,
+            }));
+            
+            res.json(events);
         } catch (err) {
             console.log(err);
             res.status(500).json({ error: 'Internal Server Error' });
