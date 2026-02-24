@@ -38,7 +38,7 @@ module.exports = {
                 start: transaction.date,
                 allDay: true,
             }));
-            
+
             res.json(events);
         } catch (err) {
             console.log(err);
@@ -68,6 +68,20 @@ module.exports = {
             res.json('Update Completed!');
         } catch (err) {
             console.log(err)
+        }
+    },
+    unscheduleEvent: async (req, res) => {
+        console.log(req.body.id);
+        try {
+            await Transaction.findOneAndUpdate(
+                {_id:req.body.id},
+                {date: null}
+            );
+            console.log('Transaction Unscheduled!');
+            res.json('Unschedule Completed!');
+        } catch (err) {
+            console.log(err)
+            res.status(500).json({ error: 'Internal Server Error' });
         }
     },
     updateTransactionAmount: async (req, res) => {

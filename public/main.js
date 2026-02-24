@@ -58,6 +58,30 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         events: '/api/calendar-events', // Fetch events from the server
         
+        eventClick: async function(info){
+            const confirmRemoval = confirm(`Do you want to unschedule this ${info.event.title}? This will remove the date but keep the transaction.`);
+            if (confirmRemoval) {
+                try {
+                    const response = await fetch('/unscheduleEvent', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            id: info.event.id
+                        })
+                    });
+                    if (response.ok) {
+                        console.log('Event unscheduled successfully');
+                        calendar.refetchEvents(); // Refresh the calendar to show the updated date
+                    } else {
+                        console.error('Failed to unschedule event');
+                    }
+                } catch (error) {
+                    console.error('Error unscheduling event:', error);
+                }
+            }
+        },
         drop: function(info){
             // Get the event ID from the dragged element
             const transactionId = info.draggedEl.dataset.id;
