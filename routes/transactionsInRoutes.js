@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const transactionsController = require('../controllers/transactionsInControllers')
+//const {ensureAuth} = require('../middleware/auth')
+
+//Transactions Routes
 
 router.get('/', transactionsController.getTransactions)
 router.post('/createTransaction', transactionsController.createTransaction)
