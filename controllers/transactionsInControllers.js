@@ -1,11 +1,11 @@
-const { get } = require('mongoose')
 const Transaction = require('../models/transaction')
-const { all } = require('../routes/transactionsInRoutes')
-
 
 
 module.exports = {
-    getTransactions: async(req, res) =>{
+    getDashboard: async(req, res) =>{
+        //console.log for testing purposes
+        console.log('Dashboard Loaded')
+        console.log(req.user)
         try {
             //variables awaiting for the future
             //let totalIncome
@@ -13,12 +13,13 @@ module.exports = {
 
             //Mongoose method, when called without any arguments, queries the MongoDB database and returns every single document (transaction) found in the transactions collection.
 
-            const allTransactions = await Transaction.find()
+            //const allTransactions = await Transaction.find()
+            const userTransactions = await Transaction.find({userId: req.user._id})
             //to test if we are getting the transactions from the database, we can log them to the console
             //console.log(allTransactions)
             
-            //use expenses variable for our index.ejs
-            res.render('index.ejs', {expenses: allTransactions})
+            //use expenses variable for our dashboard.ejs
+            res.render('dashboard.ejs', {expenses: userTransactions, user: req.user.userName})
             
         } catch (err) {
             console.log(err)            
@@ -27,6 +28,7 @@ module.exports = {
     getCalendarEvents: async (req, res) => {
         try {
             const transactions = await Transaction.find( {
+                userId: req.user._id,
                 date: {
                     $exists: true,
                     $ne: null
@@ -49,7 +51,7 @@ module.exports = {
         //console.log for testing purposes
         console.log(req.body)
         try {
-            await Transaction.create({description:req.body.description, amount:req.body.amount,date:req.body.date,type:req.body.type})
+            await Transaction.create({description:req.body.description, amount:req.body.amount,date:req.body.date,type:req.body.type, userId: req.user._id})
             console.log('Transaction Added!')
             res.redirect('/')            
         } catch (err) {

@@ -20,9 +20,12 @@ const TransactionSchema = new mongoose.Schema({
     //     type: String, 
     //     required: false,
     // },
-    //will be implementing date down the road - using current schema for testing 
     date:{
         type: Date,
+        required: true,
+    },
+    userId: {
+        type: String,
         required: true,
     },
 },{

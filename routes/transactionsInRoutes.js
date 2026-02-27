@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const transactionsController = require('../controllers/transactionsInControllers')
-//const {ensureAuth} = require('../middleware/auth')
+const {ensureAuth} = require('../middleware/auth')
+
+//Authenticated Routes
+router.get('/', ensureAuth, transactionsController.getDashboard)
 
 //Transactions Routes
 
-router.get('/', transactionsController.getTransactions)
 router.post('/createTransaction', transactionsController.createTransaction)
 router.put('/updateTransaction', transactionsController.updateTransactionAmount)
 router.delete('/deleteTransaction', transactionsController.deleteTransaction)

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const authController = require('../controllers/authControllers')
-const homeController = require('../controllers/homeControllers')
+const authController = require('../controllers/auth')
+const homeController = require('../controllers/home')
 const {ensureAuth, ensureGuest} = require('../middleware/auth')
 
 //Main Routes - simplified for now
