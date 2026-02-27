@@ -33,8 +33,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         store: MongoStore.create({ 
-            mongoUrl: process.env.DB_STRING
-        }),
+            mongoUrl: 'mongodb+srv://canedadb:canedadb@cluster0.4tpyuhz.mongodb.net/?appName=Cluster0' }),
     })
 )
 //passport middleware
