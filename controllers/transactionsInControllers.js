@@ -53,7 +53,7 @@ module.exports = {
         try {
             await Transaction.create({description:req.body.description, amount:req.body.amount,date:req.body.date,type:req.body.type, userId: req.user._id})
             console.log('Transaction Added!')
-            res.redirect('/')            
+            res.redirect('/dashboard')            
         } catch (err) {
             console.log(err)   
         }
